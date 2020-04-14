@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+    <title>Document</title>
+</head>
+<style>
+    .content{
+        width: 200px;
+        height: 200px;
+        background-color: aqua;
+    }
+    .fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+    }
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+    }
+</style>
+<body>
+    <div id="app">
+        <Welcom v-model="msg"  @model-action="changeData"></Welcom>
+        <h3>{{msg}}</h3>
+    </div>
+</body>
+<script>
+    let WelcomInfo=Vue.component(
+        'Welcom',{
+            props:['msg'],                                                                            
+            template:`<input type="text" @input="$emit('model-action',$event.target.value)" :value='msg'>`,
+
+            // methods:{
+            //     //传对象进来
+            //     chooseSchool:function(SchoolName){
+            //         console.log(this)
+            //         //this.$emit("childtoparent",SchoolName)
+            //         this.$parent.getSchoolInfo(SchoolName)
+            //     }
+            // }
+        }
+    )
+    var app= new Vue({
+        el:'#app',
+        data:{
+           msg:""
+        },
+        methods: {
+            changeData:function(data){
+               this.msg=data
+            }
+        }
+    })
+</script>
+</html>

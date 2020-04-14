@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="./css/index.css">
+	</head>
+	<body>
+		<!-- <div id="app">
+			姓名：{{title}}<br>
+			类型：<p v-if="isVip">Vip</p>
+			<p v-else>普通用户</p>
+			可在线时间：<br>
+			<p v-if="age>18">24h</p>
+			<p v-else-if="age>14">8h</p>
+			<p v-else>4h</p>
+		</div> -->
+		<div id="app">
+			<div v-show="isShow" id="pane">
+				{{title}}
+			</div>
+			<button @click="changeApp">首页</button>
+			<button @click="changeList">列表</button>
+			<button @click="changeDetail">详情</button>
+		</div>
+		
+		<div id="showTest">
+			<div id="showApp">
+				<p v-show="tab==1">首页</p>
+				<p v-show="tab==2">列表</p>
+				<p v-show="tab==3">详情</p>
+			</div>
+			<button @click="tabChange" data-index="1">首页</button>
+			<button @click="tabChange" data-index="2">列表</button>
+			<button @click="tabChange" data-index="3">详情</button>
+		</div>
+		
+	</body>
+	<script>
+		var appNew=new Vue({
+			el:'#app',
+			data:{
+				// title:"何磊",
+				// isVip:true,
+				title: "首页",
+				 content:["首页","列表","详情"],
+				isShow:true
+			},
+			methods: {
+				changeApp:function(){
+					appNew.title=appNew.content[0]
+				},
+				changeList:function(){
+					appNew.title=appNew.content[1]
+				},
+				changeDetail:function(){
+					appNew.title=appNew.content[2]
+				}
+			}
+		})
+		var shows=new Vue({
+			el:'#showTest',
+			data:{
+				tab:1
+			},
+			methods:{
+				tabChange:function(e){
+					let tabid=e.target.dataset.index;
+					this.tab=tabid
+				}
+			}
+		})
+		console.log(appNew)
+	</script>
+</html>

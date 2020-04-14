@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+    <title>Document</title>
+</head>
+<style>
+    .content{
+        width: 200px;
+        height: 200px;
+        background-color: aqua;
+    }
+    .fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+    }
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+    }
+</style>
+<body>
+    <div id="app">
+        <Welcom v-for="(item, index) in schoolList"  @childtoparent="getSchoolInfo" :index="index" :key="index" :school-name="item"></Welcom>
+        <div>您选择的学校是：{{ChooseSchool.name}}</div>
+        <div>地址：{{ChooseSchool.address}}</div>
+    </div>
+</body>
+<script>
+    let WelcomInfo=Vue.component(
+        'Welcom',{
+            props:['SchoolName','index'],
+                                                                                                //传对象进来
+            template:"<div>{{index}}学校名称:{{SchoolName.name}}<div><button @click='chooseSchool(SchoolName)'>请选择学校</button></div></div>",
+            
+            methods:{
+                //传对象进来
+                chooseSchool:function(SchoolName){
+                    console.log(SchoolName)
+                    this.$emit("childtoparent",SchoolName)
+                }
+            }
+        }
+    )
+    var app= new Vue({
+        el:'#app',
+        data:{
+            schoolList:[
+                    {
+                        name:"扬州大学",
+                        address:"扬州"
+                    },
+                    {
+                        name:"北京大学",
+                        address:"北京"
+                    },
+                    {
+                        name:"上海大学",
+                        address:"上海"
+                    }
+            ],
+            ChooseSchool:{}
+        },
+        components:{
+            "Welcom":WelcomInfo
+        },
+        methods: {
+            getSchoolInfo:function(i){
+               this.ChooseSchool=i;
+            }
+        }
+    })
+</script>
+</html>

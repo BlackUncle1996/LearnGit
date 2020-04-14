@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+    <title>Document</title>
+</head>
+<style>
+    #one{
+        background-color: aqua;
+    }
+    #two{
+        background-color: blue;
+    }
+</style>
+<body>
+    <div id="app" :id="color">
+        {{words}}
+        <p v-once >{{msg}}</p>
+        <ul>
+            <li v-for="(item, index) in oddStudents" :key="index">{{item.name}}</li>
+        </ul>
+    </div>
+</body>
+<script>
+    var app= new Vue({
+        el:'#app',
+        data:{
+            msg:"哈哈哈哈",
+            color:"one",
+            name:8,
+            names:8,
+            Students:[{
+                name:"Tom",
+                age:22
+            },
+            {
+                name:"Iack",
+                age:33
+            },
+            {
+                name:"ROs",
+                age:44
+            }]
+        },
+        computed: {
+            oddStudents:function(){
+             return    this.Students.filter((item,i)=>{
+                  return  item.age%2==0;
+                })
+              
+            },
+            words:function(){
+                return this.name+this.names;
+            }
+        },
+    })
+</script>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+    <title>Document</title>
+</head>
+<style>
+    .content{
+        width: 200px;
+        height: 200px;
+        background-color: aqua;
+    }
+    .fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+    }
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+    }
+</style>
+<body>
+    <div id="app">
+        <transition name="cct"
+        enter-active-class="animated slideInUp"
+        leave-active-class="animated bounceOutRight">
+            <div v-show="isShow" class="content">
+        
+            </div>
+        </transition>
+        <button @click='obtn'>切换显示</button>
+    </div>
+</body>
+<script>
+    var app= new Vue({
+        el:'#app',
+        data:{
+           isShow:true
+        },
+        methods: {
+            obtn:function(){
+                console.log("1")
+                this.isShow=!this.isShow;
+            }
+        }
+    })
+</script>
+</html>

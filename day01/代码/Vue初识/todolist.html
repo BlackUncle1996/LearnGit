@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+    <title>Document</title>
+</head>
+<style>
+    .content{
+        width: 200px;
+        height: 200px;
+        background-color: aqua;
+    }
+    
+</style>
+<body>
+    <div id="app">
+        清添加任务：<input type="text" v-model.lazy="Tasks" v-on:keyup.enter="add">
+        <h3>正在进行</h3>
+        <transition-group name="cct"
+        enter-active-class="animated slideInUp"
+        leave-active-class="animated bounceOutRight">>
+            
+                <div   v-for="(item, index) in DoingList" :key="index">
+                    <input type="checkbox" @click.prevent="OnTasks(item.id)" :data-index="item.id">
+                    <span class="cont">{{item.content}}</span>
+                    <span class="del" @click="del(index)">删除</span>
+                </div>
+            
+        </transition-group>
+        
+        <h3>已经完成</h3>
+        <div>
+            <div>
+                <div  v-for="(item, index) in DoneList" :key="index">
+                    <input type="checkbox" @click.prevent="OnTasks(item.id)" :data-index="item.id">{{item.content}}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var app= new Vue({
+        el:'#app',
+        data:{
+           Tasks:"",
+           TasksList:[]
+        },
+        computed: {
+            DoingList:function(item,index){
+                let arr= this.TasksList.filter((item,index)=>{
+                    return !item.isDone
+                })
+                return arr;
+            },
+            DoneList:function(item,index){
+                let arr= this.TasksList.filter((item,index)=>{
+                    return item.isDone
+                })
+                return arr;
+            }
+        },
+        methods: {
+            add:function(){
+                this.TasksList.push({content:this.Tasks,isDone:false,id:this.TasksList.length})
+                this.Tasks=""
+                this.saveData();
+            },
+            saveData:function(){
+                localStorage.TasksList=JSON.stringify(this.TasksList)
+            },
+            OnTasks:function(index){
+               this.TasksList[index].isDone=!this.TasksList[index].isDone;
+            },
+            del:function(id){
+                this.TasksList.splice(id,1);
+                console.log(id)
+                this.saveData();
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@3.5.1" rel="stylesheet" type="text/css">
+    <title>Document</title>
+</head>
+<style>
+    .content{
+        width: 200px;
+        height: 200px;
+        background-color: aqua;
+    }
+    .fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+    }
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+    }
+</style>
+<body>
+    <div id="app">
+        <div class="content">
+            <component :is="msg"></component>
+        </div>
+        <button @click="change(0)" ref="shouye">首页</button>
+        <button @click="change(1)">列表</button>
+        <button @click="change(2)">新闻</button>
+        <button @click="change(3)">个人</button>
+    </div>
+</body>
+<script>
+    let shouye=Vue.component(
+        'shouye',{       
+            name:"shouye",                                                              
+            template:`<div>
+                        <h1>首页</h1>
+                      </div>`
+        }
+    )
+    let news=Vue.component(
+        'news',{
+                                                                                  
+            template:`<div>
+                        <h1>新闻</h1>
+                      </div>`
+        }
+    )
+    let list=Vue.component(
+        'list',{
+                                                                                
+            template:`<div>
+                        <h1>列表</h1>
+                      </div>`
+        }
+    )
+    let my=Vue.component(
+        'my',{
+                                                                                  
+            template:`<div>
+                        <h1>个人中心</h1>
+                      </div>`
+        }
+    )
+    var app= new Vue({
+        el:'#app',
+        data:{
+           msg:shouye
+        },
+        components:{
+            comName:[shouye,news,list,my]
+        },
+        methods: {
+            change:function(i){
+               console.log(i)
+               console.log(this.$options.components.comName[i])
+               this.msg=this.$options.components.comName[i]
+               //console.log(this.$options.components['shouye'])
+              
+            }
+        }
+    })
+</script>
+</html>

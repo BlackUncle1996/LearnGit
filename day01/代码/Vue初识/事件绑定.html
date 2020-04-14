@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{count}}
+        <ul>
+            <li v-for="(item, index) in Stars" :key="index" @click="Click(item,index,$event)">{{index}}-----{{item}}</li>
+        </ul>
+        <button @click="count+=1" >点击</button>
+        <input type="text"  @keydown.enter="Test" v-model="city" />
+          
+    </div>
+</body>
+<script>
+    var app= new Vue({
+        el:'#app',
+        data:{
+           count:0,
+           Stars:['杨幂','江疏影','柳岩'],
+           city:""
+        },
+        methods: {
+            Click:(item,i,e)=>{
+                console.log(item);
+                console.log(i);
+                console.log(e);
+            },
+            Test:()=>{
+                alert("111")
+            }
+        },
+    })
+</script>
+</html>

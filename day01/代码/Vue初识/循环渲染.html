@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>明星列表</h1>
+        <ul>
+            <li v-for="item,key in Stars">
+                {{item}} {{key}}
+            </li>
+        </ul>
+        <h1>学生列表</h1>
+        <ul>
+            <li v-for="item,key in Students[0]">
+                {{item}} key----{{key}}
+            </li>
+        </ul>
+        <h1>只输出年龄偶数的学生</h1>
+        <ul>
+            <li v-if="item.age%2==0" v-for="item,key in Students">
+                {{item.name}}
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    var app= new Vue({
+        el:'#app',
+        data:{
+            Stars:['张柏芝','江疏影','杨幂'],
+            Students:[{
+                name:"Tom",
+                age:22
+            },
+            {
+                name:"Iack",
+                age:33
+            },
+            {
+                name:"ROs",
+                age:44
+            }]
+        }
+    })
+</script>
+</html>

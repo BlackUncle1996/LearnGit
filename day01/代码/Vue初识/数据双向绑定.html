@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+       <span v-for="item in Stars">
+        {{item}}  <input type="checkbox"  :key="index" v-model.lazy='StarsName' :value="item">
+        </span>
+        <h3>{{StarsName}}</h3>
+    </div>
+</body>
+<script>
+    var app= new Vue({
+        el:'#app',
+       data:{
+           Stars:['Angelababy','江疏影','范冰冰','关晓彤','杨幂'],
+           StarsName:[]
+       }
+    })
+</script>
+</html>
